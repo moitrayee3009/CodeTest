@@ -1,0 +1,48 @@
+.note {
+  width: 95%;
+  height: fit-content;
+  display: flex;
+  justify-content: space-between;
+  margin: auto;
+  margin-bottom: 3%;
+}
+
+.imgContainer {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  width: 15%;
+  padding-right: 4%;
+  box-sizing: border-box;
+}
+
+.img {
+  height: 75px;
+  width: 80px;
+  border-radius: 50%;
+}
+
+.textContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+}
+
+.name {
+  font-size: 15px;
+  font-weight: bold;
+  text-align: left;
+  margin-bottom: 0;
+}
+
+.content {
+  font-size: 14px;
+  line-height: 19px;
+  text-align: justify;
+}
+
+@media only screen and (max-width: 600px) {
+  .imgContainer {
+    display: none;
+  }
+}

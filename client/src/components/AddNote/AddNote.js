@@ -6,15 +6,10 @@ const AddNote = () => {
   const [name, setName] = useState('')
   const [content, setContent] = useState('')
   const [image, setImage] = useState('')
-  // const [imageURLs, setImageURLs] = useState([])
   const [previewImage, setPreviewImage] = useState('')
   const hiddenFileInput = useRef(null)
 
   const url = 'http://localhost:3001/newnote'
-
-  const handleName = (event) => {
-    setName(event.target.value)
-  }
 
   const processImage = (e) => {
     let imageFile = e.target.files[0]
@@ -23,12 +18,38 @@ const AddNote = () => {
     setImage(imageFile)
   }
 
-  const handleContent = (event) => {
-    setContent(event.target.value)
-  }
-
   const handleHiddenInput = (e) => {
     hiddenFileInput.current.click(e)
+  }
+
+  const validateName = (name) => {
+    if (name) {
+      name = name.trim()
+    }
+    return name && name.length >= 3 && name.length <= 64
+  }
+
+  const validateContent = (content) => {
+    if (content) {
+      content = content.trim()
+    }
+    return content && content.length >= 50 && content.length <= 500
+  }
+
+  const handleName = (event) => {
+    setName(event.target.value)
+    // const valid = validateName(event.target.value)
+    // if (valid) {
+    //   setName(event.target.value)
+    // }
+  }
+
+  const handleContent = (event) => {
+    setContent(event.target.value)
+    // const valid = validateContent(event.target.value)
+    // if (valid) {
+    //   setContent(event.target.value)
+    // }
   }
 
   // useEffect(() => {
@@ -46,11 +67,19 @@ const AddNote = () => {
     formData.append('name', name)
     formData.append('img', previewImage)
 
+    // let valid = true
+
+    // valid =
+    //   valid &&
+    //   previewImage != null &&
+    //   (previewImage.type === 'image/jpeg' || previewImage.type === 'image/png')
+
     axios.post(url, formData).then((response) => {
       // console.log(response)
     })
-    setContent(null)
-    setName(null)
+
+    setContent('')
+    setName('')
     setPreviewImage('')
   }
 
@@ -59,7 +88,7 @@ const AddNote = () => {
       <div className={styles.imgContainer}>
         <input
           type='file'
-          accept='image/*'
+          accept='image/jpg, image/jpeg, image/png'
           onChange={(e) => processImage(e)}
           hidden={true}
           ref={hiddenFileInput}
@@ -94,11 +123,13 @@ const AddNote = () => {
           type='text'
           name='name'
           placeholder='Name'
+          value={name}
           onChange={handleName}
         />
         <textarea
           placeholder='Enter your note...'
           name='content'
+          value={content}
           onChange={handleContent}
         />
         <div className={styles.btnContainer}>

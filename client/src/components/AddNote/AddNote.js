@@ -3,8 +3,8 @@ import axios from 'axios'
 import styles from './AddNote.module.css'
 
 const AddNote = () => {
-  const [name, setName] = useState(null)
-  const [content, setContent] = useState(null)
+  const [name, setName] = useState('')
+  const [content, setContent] = useState('')
   const [image, setImage] = useState('')
   // const [imageURLs, setImageURLs] = useState([])
   const [previewImage, setPreviewImage] = useState('')
@@ -31,29 +31,27 @@ const AddNote = () => {
     hiddenFileInput.current.click(e)
   }
 
-  useEffect(() => {
-    if (image.length < 1) return
+  // useEffect(() => {
+  //   if (image.length < 1) return
 
-    const newURLs = []
-    newURLs.push(URL.createObjectURL(image))
-  }, [image])
+  //   const newURLs = []
+  //   newURLs.push(URL.createObjectURL(image))
+  // }, [image])
 
   const handleSubmit = (event) => {
     event.preventDefault()
-    // alert('hi')
-    const note = {
-      content: content,
-      user: { name: name, img: image }
-    }
 
     const formData = new FormData()
+    formData.append('content', content)
+    formData.append('name', name)
+    formData.append('img', previewImage)
 
-    formData.append('notes', JSON.stringify(note))
-
-    axios.post(url, { formData }).then((response) => {
-      console.log(response)
-      console.log(response.data)
+    axios.post(url, formData).then((response) => {
+      // console.log(response)
     })
+    setContent(null)
+    setName(null)
+    setPreviewImage('')
   }
 
   return (

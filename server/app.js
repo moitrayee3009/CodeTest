@@ -2,9 +2,11 @@ var express = require('express')
 var cors = require('cors')
 var app = express()
 const fileupload = require('express-fileupload')
+const bodyParser = require('body-parser')
 
 app.use(cors())
 app.use(fileupload())
+app.use(bodyParser.urlencoded({ extended: false }))
 
 var notes = [
   {
@@ -39,9 +41,15 @@ app.get('/getnotes', function (req, res) {
 
 app.post('/newnote', function (req, res) {
   //......
-  let addNote = req.body.note
-  notes.push(addNote)
-  res.redirect('/getnotes')
+  // let addNote = req.body
+  const addNote = {
+    content: req.body.content,
+    user: {
+      name: req.body.name,
+      img: req.body.img
+    }
+  }
+  notes.unshift(addNote)
   // res.send('It is working!')
 })
 

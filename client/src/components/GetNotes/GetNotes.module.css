@@ -2,7 +2,7 @@
   width: 95%;
   height: fit-content;
   display: flex;
-  justify-content: space-between;
+  /* justify-content: space-between; */
   margin: auto;
   margin-bottom: 3%;
 }

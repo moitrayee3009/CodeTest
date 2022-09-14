@@ -2,15 +2,14 @@ import React, { useState, useEffect } from 'react'
 import axios from 'axios'
 import classes from './GetNotes.module.css'
 
-function GetNotes() {
+const GetNotes = ({ fetchNotes, setFetchNotes }) => {
   const [notes, setNotes] = useState([])
   const [error, setError] = useState({
     message: '',
     success: false
   })
   const url = 'http://localhost:3001/getnotes'
-
-  useEffect(() => {
+  const getAllNotes = () => {
     axios
       .get(url)
       .then((response) => {
@@ -26,7 +25,13 @@ function GetNotes() {
           success: false
         })
       })
-  }, [notes])
+  }
+  useEffect(() => {
+    if (fetchNotes) {
+      getAllNotes()
+      setFetchNotes(false)
+    }
+  }, [fetchNotes, setFetchNotes])
 
   let filteredNotes = notes.filter(function (el) {
     return el != null

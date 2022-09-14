@@ -2,14 +2,14 @@ import React, { useState, useEffect, useRef } from 'react'
 import axios from 'axios'
 import styles from './AddNote.module.css'
 
-const AddNote = () => {
+const AddNote = ({ setFetchNotes }) => {
   const [name, setName] = useState('')
   const [content, setContent] = useState('')
   const [image, setImage] = useState('')
   const [previewImage, setPreviewImage] = useState('')
   const hiddenFileInput = useRef(null)
 
-  const url = 'http://localhost:3001/newnote'
+  const url = 'http://localhost:3001/getnotes'
 
   const processImage = (e) => {
     let imageFile = e.target.files[0]
@@ -77,7 +77,7 @@ const AddNote = () => {
     axios.post(url, formData).then((response) => {
       // console.log(response)
     })
-
+    setFetchNotes(true)
     setContent('')
     setName('')
     setPreviewImage('')

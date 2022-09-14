@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 
 import ReactPlayer from 'react-player'
 import logo from './logo.png'
@@ -7,6 +7,8 @@ import GetNotes from './components/GetNotes/GetNotes'
 import AddNote from './components/AddNote/AddNote'
 
 const App = () => {
+  const [fetchNotes, setFetchNotes] = useState(true)
+
   return (
     <div className='App'>
       <div className='MainRow'>
@@ -25,29 +27,12 @@ const App = () => {
         </div>
         <div className='NotesContainer'>
           <div className='NotesContainerSection'>
-            <AddNote />
-            {/* <span>
-              The main task is to fill this area with the notes which you can
-              fetch from
-            </span>{" "}
-            <a
-              href="http://localhost:3001/getnotes"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              <b>http://localhost:3001/getnotes</b>
-            </a> */}
+            <AddNote setFetchNotes={setFetchNotes} />
           </div>
 
           <div className='NotesContainerSection'>
-            <GetNotes />
-            {/* If you manage do that in time, please style the notes. */}
+            <GetNotes fetchNotes={fetchNotes} setFetchNotes={setFetchNotes} />
           </div>
-          {/*
-          <div className="NotesContainerSection"> 
-            If you even manage to do that in time, start working on a way to add
-            new notes.
-          </div>*/}
         </div>
       </div>
     </div>

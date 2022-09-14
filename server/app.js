@@ -39,7 +39,7 @@ app.get('/getnotes', function (req, res) {
   res.send(notes)
 })
 
-app.post('/newnote', function (req, res) {
+app.post('/getnotes', function (req, res) {
   //......
   // let addNote = req.body
   const addNote = {
